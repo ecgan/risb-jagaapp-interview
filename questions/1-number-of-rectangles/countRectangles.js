@@ -1,28 +1,9 @@
 const transform = require('./transform')
-const getLength = require('./getLength')
+const isRectangle = require('./isRectangle')
 
-const isRectangle = (points) => {
-  const [A, B, C, D] = points
+const process = (array) => {
+  const result = []
 
-  const AB = getLength(A, B)
-  const CD = getLength(C, D)
-  const AD = getLength(A, D)
-  const BC = getLength(B, C)
-  const AC = getLength(A, C)
-  const BD = getLength(B, D)
-
-  if (
-    AB === CD &&
-    BC === AD &&
-    AC === BD
-  ) {
-    return true
-  }
-
-  return false
-}
-
-const getProcessPointFn = (result) => {
   const processPoint = (points, others) => {
     if (points.length !== 4) {
       const nextOthers = [...others]
@@ -39,25 +20,22 @@ const getProcessPointFn = (result) => {
 
     const [A, B, C, D] = points
     const key = `${A.key}-${B.key}-${C.key}-${D.key}`
-    const validRect = isRectangle(points)
+    const isRect = isRectangle(points)
     result.push({
       key: key,
-      value: validRect
+      isRectangle: isRect
     })
   }
 
-  return processPoint
+  processPoint([], array)
+
+  return result
 }
 
 const countRectangles = (array) => {
   const points = transform(array)
-  const result = []
-  const processPoint = getProcessPointFn(result)
-
-  processPoint([], points)
-
-  const validRectangles = result.filter(el => el.value)
-
+  const result = process(points)
+  const validRectangles = result.filter(el => el.isRectangle)
   return validRectangles.length
 }
 
