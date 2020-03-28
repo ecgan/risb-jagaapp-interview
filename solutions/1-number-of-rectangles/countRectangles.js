@@ -1,7 +1,7 @@
 const isRectangle = require('./isRectangle')
 
-const process = (array) => {
-  const result = []
+const countRectangles = (array) => {
+  let result = 0
 
   const processPoint = (points, others) => {
     if (points.length !== 4) {
@@ -17,24 +17,14 @@ const process = (array) => {
       return
     }
 
-    const [A, B, C, D] = points
-    const key = `${A.key}-${B.key}-${C.key}-${D.key}`
-    const isRect = isRectangle(points)
-    result.push({
-      key: key,
-      isRectangle: isRect
-    })
+    if (isRectangle(points)) {
+      result++
+    }
   }
 
   processPoint([], array)
 
   return result
-}
-
-const countRectangles = (array) => {
-  const result = process(array)
-  const validRectangles = result.filter(el => el.isRectangle)
-  return validRectangles.length
 }
 
 module.exports = countRectangles
