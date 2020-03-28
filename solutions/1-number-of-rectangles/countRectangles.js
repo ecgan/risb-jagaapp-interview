@@ -1,4 +1,3 @@
-const transform = require('./transform')
 const isRectangle = require('./isRectangle')
 
 const process = (array) => {
@@ -33,8 +32,7 @@ const process = (array) => {
 }
 
 const countRectangles = (array) => {
-  const points = transform(array)
-  const result = process(points)
+  const result = process(array)
   const validRectangles = result.filter(el => el.isRectangle)
   return validRectangles.length
 }
