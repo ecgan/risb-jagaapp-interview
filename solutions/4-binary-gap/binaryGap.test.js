@@ -55,3 +55,11 @@ test('2147483647 should return 0', () => {
 
   expect(output).toBe(0)
 })
+
+test('561892 should return 3', () => {
+  const input = 561892
+
+  const output = binaryGap(input)
+
+  expect(output).toBe(3)
+})
