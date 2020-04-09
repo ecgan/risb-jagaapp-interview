@@ -6,14 +6,9 @@ const binaryGap = (number) => {
   for (let i = 1; i < bin.length; i++) {
     if (bin[i] === '0') {
       cur++
-      continue
-    }
-
-    if (bin[i - 1] === '0') {
-      if (cur > max) {
-        max = cur
-        cur = 0
-      }
+    } else {
+      max = Math.max(max, cur)
+      cur = 0
     }
   }
 
